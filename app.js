@@ -1,56 +1,48 @@
-
 /* ===============================================================
    1️⃣ VARIABLES + SCOPE + HOISTING
    =============================================================== */
 
-// var → function scoped, hoisted (undefined)
-//console.log(varVariable); // undefined
 var varVariable = "I am var";
-
-// let → block scoped, temporal dead zone
-// console.log(letVariable); // ❌ ReferenceError
 let letVariable = "I am let";
-
-// const → block scoped, must be initialized
 const constVariable = "I am const";
 
-// const value cannot be reassigned
-// constVariable = "change"; ❌
-
-// Block scope
 {
     let blockLet = "Block scoped";
     var blockVar = "Function scoped";
 }
-// console.log(blockLet); ❌
-// console.log(blockVar); ✅
+
+// console.log(varVariable);
+// console.log(blockVar);
+// console.log(blockLet); ❌ ReferenceError
 
 
 /* ===============================================================
    2️⃣ DATA TYPES
    =============================================================== */
 
-let num = 10;                 // number
-let str = "Hello";            // string
-let bool = true;              // boolean
-let undef;                    // undefined
-let empty = null;             // null
-let sym = Symbol("id");       // symbol
-let big = 123n;               // bigint
+let num = 10;
+let str = "Hello";
+let bool = true;
+let undef;
+let empty = null;
+let sym = Symbol("id");
+let big = 123n;
 
-let obj = { name: "Suyash" }; // object
-let arr = [1, 2, 3];          // array
+let obj = { name: "Suyash" };
+let arr = [1, 2, 3];
 
-// console.log(typeof null); // "object" (JS bug)
+// console.log(typeof num);
+// console.log(typeof str);
+// console.log(typeof empty); // object (JS bug)
 
 
 /* ===============================================================
    3️⃣ TYPE COERCION
    =============================================================== */
 
-// console.log("5" + 2); // "52"
-// console.log("5" - 2); // 3
-// console.log(true + 1); // 2
+// console.log("5" + 2);   // "52"
+// console.log("5" - 2);   // 3
+// console.log(true + 1);  // 2
 
 
 /* ===============================================================
@@ -58,85 +50,56 @@ let arr = [1, 2, 3];          // array
    =============================================================== */
 
 let age = 22;
-
-// if-else
-if (age >= 18) {
-    // console.log("Adult");
-} else {
-    // console.log("Minor");
-}
-
-// ternary
 let result = age >= 18 ? "Adult" : "Minor";
 
-// switch
-let day = new Date().getDay();
-switch (day) {
-    case 0: break;
-    case 1: break;
-    default: break;
-}
+// console.log(result);
 
 
 /* ===============================================================
-   5️⃣ LOOPS (ALL TYPES)
+   5️⃣ LOOPS
    =============================================================== */
 
-// for
 for (let i = 0; i < 3; i++) {
-    // console.log(i);
+    // console.log("for:", i);
 }
 
-// while
 let count = 0;
-while (count < 3) {
+while (count < 2) {
+    // console.log("while:", count);
     count++;
 }
 
-// do-while
 do {
+    // console.log("do-while:", count);
     count--;
 } while (count > 0);
 
-// for...of (arrays)
 for (let value of arr) {
-    // console.log(value);
+    // console.log("for-of:", value);
 }
 
-// for...in (objects)
 for (let key in obj) {
-    // console.log(key, obj[key]);
+    // console.log("for-in:", key, obj[key]);
 }
 
 
 /* ===============================================================
-   6️⃣ FUNCTIONS (ALL TYPES)
+   6️⃣ FUNCTIONS
    =============================================================== */
 
-// Normal
 function add(a, b) {
     return a + b;
 }
 
-// Function expression
 const subtract = function (a, b) {
     return a - b;
 };
 
-// Arrow
 const multiply = (a, b) => a * b;
 
-// Default parameters
-function greet(name = "Guest") {
-    return `Hello ${name}`;
-}
-
-// Rest parameters
-function sumAll(...numbers) {
-    return numbers.reduce((a, b) => a + b, 0);
-}
-
-// console.log(sumAll(1, 2, 3));
+// console.log(add(5, 3));
+// console.log(subtract(5, 3));
+// console.log(multiply(5, 3));
 
 
 /* ===============================================================
@@ -151,25 +114,25 @@ function calculate(a, b, operation) {
 
 
 /* ===============================================================
-   8️⃣ CLOSURES (VERY IMPORTANT)
+   8️⃣ CLOSURES
    =============================================================== */
 
 function outer() {
     let count = 0;
-
-    return function inner() {
+    return function () {
         count++;
         return count;
     };
 }
 
 const counter = outer();
+
 // console.log(counter());
 // console.log(counter());
 
 
 /* ===============================================================
-   9️⃣ OBJECTS IN DEPTH
+   9️⃣ OBJECTS
    =============================================================== */
 
 const person = {
@@ -180,29 +143,24 @@ const person = {
     }
 };
 
-//console.log(person.greet());
+// console.log(person.greet());
 
-// Destructuring
 const { name, age: userAge } = person;
+// console.log(name, userAge);
 
-// Spread
 const updatedPerson = { ...person, city: "Delhi" };
+// console.log(updatedPerson);
 
 
 /* ===============================================================
-   🔟 ARRAYS IN DEPTH
+   🔟 ARRAYS
    =============================================================== */
 
 const numbers = [1, 2, 3, 4, 5];
 
-// map
-const doubled = numbers.map(n => n * 2);
-
-// filter
-const evens = numbers.filter(n => n % 2 === 0);
-
-// reduce
-const total = numbers.reduce((sum, n) => sum + n, 0);
+// console.log(numbers.map(n => n * 2));
+// console.log(numbers.filter(n => n % 2 === 0));
+// console.log(numbers.reduce((sum, n) => sum + n, 0));
 
 
 /* ===============================================================
@@ -210,9 +168,12 @@ const total = numbers.reduce((sum, n) => sum + n, 0);
    =============================================================== */
 
 const uniqueNumbers = new Set([1, 2, 2, 3]);
+// console.log(uniqueNumbers);
 
 const mapData = new Map();
 mapData.set("key", "value");
+
+// console.log(mapData.get("key"));
 
 
 /* ===============================================================
@@ -232,36 +193,33 @@ const text = "Hello World";
 try {
     JSON.parse("{ bad json }");
 } catch (err) {
-    // console.error(err.message);
+    // console.log(err.message);
 } finally {
-    // console.log("Always runs");
+    // console.log("Finally block executed");
 }
 
 
 /* ===============================================================
-   1️⃣4️⃣ ASYNCHRONOUS JAVASCRIPT
+   1️⃣4️⃣ ASYNC JAVASCRIPT
    =============================================================== */
 
-// setTimeout
 setTimeout(() => {
-    // console.log("Timeout");
+    // console.log("setTimeout executed");
 }, 1000);
 
-// Promise
-const promise = new Promise((resolve) => {
-    resolve("Done");
-});
+const promise = new Promise(resolve => resolve("Promise resolved"));
 
-// promise.then(console.log);
+// promise.then(res => console.log(res));
 
-// async/await
 async function asyncExample() {
     return "Async Result";
 }
 
+// asyncExample().then(res => console.log(res));
+
 
 /* ===============================================================
-   1️⃣5️⃣ EVENT LOOP (MICROTASK VS MACROTASK)
+   1️⃣5️⃣ EVENT LOOP
    =============================================================== */
 
 // console.log("Start");
@@ -274,73 +232,43 @@ async function asyncExample() {
 
 
 /* ===============================================================
-   1️⃣6️⃣ DOM EVENTS (REFERENCE)
+   1️⃣6️⃣ THIS, CALL, APPLY, BIND
    =============================================================== */
-/*
-document.getElementById("btn").addEventListener("click", () => {
-    alert("Clicked");
-});
-*/
-
-// Global context
-// console.log(this); // window (browser), {} in Node
-
-const user = {
-    name: "Suyash",
-    sayName() {
-        //console.log(this.name); // refers to user
-    }
-};
-
-user.sayName();
-
-// Arrow function does NOT have its own this
-const ob = {
-    name: "JS",
-    arrowFunc: () => {
-        //console.log(this.name); // undefined
-    }
-};
 
 function greet(city, country) {
-    return `Hi, I am ${this.name} from ${city}, ${country}`;
+    return `Hi I am ${this.name} from ${city}, ${country}`;
 }
 
-const per= { name: "Suyash" };
-// call → arguments one by one
- //console.log(greet.call(per, "Delhi", "India"));
+const per = { name: "Suyash" };
 
-// apply → arguments as array
- //console.log(greet.apply(per, ["Delhi", "India"]));
+// console.log(greet.call(per, "Delhi", "India"));
+// console.log(greet.apply(per, ["Delhi", "India"]));
 
-// bind → returns new function
 const boundFunc = greet.bind(per, "Delhi", "India");
-//console.log(boundFunc());
+// console.log(boundFunc());
 
+
+/* ===============================================================
+   1️⃣7️⃣ PROTOTYPE & CLASSES
+   =============================================================== */
 
 function People(name) {
     this.name = name;
 }
 
-// Adding method using prototype
 People.prototype.sayHello = function () {
     return `Hello ${this.name}`;
 };
 
 const p1 = new People("Suyash");
- //console.log(p1.sayHello());
-
-// Check prototype chain
-// console.log(p1.__proto__ === People.prototype);
-
+// console.log(p1.sayHello());
 
 class Animal {
     constructor(name) {
         this.name = name;
     }
-
     speak() {
-        return `${this.name} makes a noise`;
+        return `${this.name} makes noise`;
     }
 }
 
@@ -351,39 +279,82 @@ class Dog extends Animal {
 }
 
 const dog = new Dog("Buddy");
-//console.log(dog.speak());
+// console.log(dog.speak());
 
 
+/* ===============================================================
+   1️⃣8️⃣ SHALLOW vs DEEP COPY
+   =============================================================== */
 
-const original = {
-    name: "JS",
-    address: { city: "Delhi" }
-};
+const original = { name: "JS", address: { city: "Delhi" } };
 
-// Shallow copy
 const shallow = { ...original };
 shallow.address.city = "Mumbai";
 
-// console.log(original.address.city); // Mumbai ❗
+// console.log(original.address.city);
 
-// Deep copy
 const deep = JSON.parse(JSON.stringify(original));
 deep.address.city = "Pune";
 
-//console.log(original.address.city); // Mumbai
+// console.log(original.address.city);
 
 
-const userData = {
-    id: 1,
-    profile: {
-        username: "suyash",
-        ag: 22
-    }
-};
+/* ===============================================================
+   1️⃣9️⃣ SYMBOL, GENERATOR, CURRY
+   =============================================================== */
 
-const {
-    profile: { username, ag }
-} = userData;
+const sym1 = Symbol("id");
+const userObj = { [sym1]: 123 };
 
-// console.log(username, ag);
+// console.log(userObj[sym1]);
 
+function* generatorFunc() {
+    yield 1;
+    yield 2;
+}
+
+const gen = generatorFunc();
+// console.log(gen.next().value);
+
+function curry(a) {
+    return b => c => a + b + c;
+}
+
+// console.log(curry(1)(2)(3));
+
+
+/* ===============================================================
+   2️⃣0️⃣ DEBOUNCE & THROTTLE
+   =============================================================== */
+
+function throttle(fn, limit) {
+    let inThrottle = false;
+    return function () {
+        if (!inThrottle) {
+            fn();
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+const throttledFunc = throttle(() => {
+    // console.log("Throttled");
+}, 2000);
+
+// throttledFunc();
+
+
+function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), delay);
+    };
+}
+
+const search = debounce(text => {
+    // console.log("Searching:", text);
+}, 500);
+
+// search("JavaScript");
