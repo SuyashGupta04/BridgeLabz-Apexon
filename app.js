@@ -1,224 +1,389 @@
-// Javascript 
 
-// Javascript Variables
-let greeting = "Hello, World!";
-const pi = 3.14159;
-var isActive = true;
+/* ===============================================================
+   1️⃣ VARIABLES + SCOPE + HOISTING
+   =============================================================== */
+
+// var → function scoped, hoisted (undefined)
+//console.log(varVariable); // undefined
+var varVariable = "I am var";
+
+// let → block scoped, temporal dead zone
+// console.log(letVariable); // ❌ ReferenceError
+let letVariable = "I am let";
+
+// const → block scoped, must be initialized
+const constVariable = "I am const";
+
+// const value cannot be reassigned
+// constVariable = "change"; ❌
+
+// Block scope
+{
+    let blockLet = "Block scoped";
+    var blockVar = "Function scoped";
+}
+// console.log(blockLet); ❌
+// console.log(blockVar); ✅
 
 
-//Javascript Conditionals
-if (isActive) {
-    //console.log(greeting);
+/* ===============================================================
+   2️⃣ DATA TYPES
+   =============================================================== */
+
+let num = 10;                 // number
+let str = "Hello";            // string
+let bool = true;              // boolean
+let undef;                    // undefined
+let empty = null;             // null
+let sym = Symbol("id");       // symbol
+let big = 123n;               // bigint
+
+let obj = { name: "Suyash" }; // object
+let arr = [1, 2, 3];          // array
+
+// console.log(typeof null); // "object" (JS bug)
+
+
+/* ===============================================================
+   3️⃣ TYPE COERCION
+   =============================================================== */
+
+// console.log("5" + 2); // "52"
+// console.log("5" - 2); // 3
+// console.log(true + 1); // 2
+
+
+/* ===============================================================
+   4️⃣ CONDITIONALS
+   =============================================================== */
+
+let age = 22;
+
+// if-else
+if (age >= 18) {
+    // console.log("Adult");
 } else {
-    //console.log("Inactive");
+    // console.log("Minor");
 }
 
-switch (new Date().getDay()) {
-    case 0:
-        //console.log("It's Sunday!");
-        break;
-    case 1:
-        //console.log("It's Monday!");
-        break;
-    case 2:
-        //console.log("It's Tuesday!");
-        break;
-    default:
-    //console.log("It's another day!");
-}
+// ternary
+let result = age >= 18 ? "Adult" : "Minor";
 
-var age = 22;
-let text = (age < 18) ? "Minor" : "Adult";
-//console.log(text);
-
-
-// Javascript Loops
-loop1: for (let i = 0; i < 5; i++) {
-    if (i === 3) {
-        continue loop1;
-    }
-    //console.log("For Loop iteration: " + i);
-}
-
-while (age < 25) {
-    //console.log("Age is: " + age);
-    age++;
+// switch
+let day = new Date().getDay();
+switch (day) {
+    case 0: break;
+    case 1: break;
+    default: break;
 }
 
 
-do {    //console.log("This will run at least once.");
-} while (false);
+/* ===============================================================
+   5️⃣ LOOPS (ALL TYPES)
+   =============================================================== */
+
+// for
+for (let i = 0; i < 3; i++) {
+    // console.log(i);
+}
+
+// while
+let count = 0;
+while (count < 3) {
+    count++;
+}
+
+// do-while
+do {
+    count--;
+} while (count > 0);
+
+// for...of (arrays)
+for (let value of arr) {
+    // console.log(value);
+}
+
+// for...in (objects)
+for (let key in obj) {
+    // console.log(key, obj[key]);
+}
 
 
-// Javascript Functions
-function addition(a, b) {
+/* ===============================================================
+   6️⃣ FUNCTIONS (ALL TYPES)
+   =============================================================== */
+
+// Normal
+function add(a, b) {
     return a + b;
 }
 
-const multiply = function (a, b) {
-    return a * b;
+// Function expression
+const subtract = function (a, b) {
+    return a - b;
 };
 
-const divide = (a, b) => a / b;
+// Arrow
+const multiply = (a, b) => a * b;
 
-//console.log("Addition: " + addition(5, 3));
-//console.log("Multiplication: " + multiply(5, 3));
-//console.log("Division: " + divide(6, 3));
+// Default parameters
+function greet(name = "Guest") {
+    return `Hello ${name}`;
+}
 
-const myFunction = new Function("a", "b", "return a * b");
-let x = myFunction(4, 3);
-//console.log("Function Constructor Multiplication: " + x);
+// Rest parameters
+function sumAll(...numbers) {
+    return numbers.reduce((a, b) => a + b, 0);
+}
+
+// console.log(sumAll(1, 2, 3));
 
 
-// Javascript Objects
+/* ===============================================================
+   7️⃣ CALLBACKS & HIGHER ORDER FUNCTIONS
+   =============================================================== */
+
+function calculate(a, b, operation) {
+    return operation(a, b);
+}
+
+// console.log(calculate(5, 3, add));
+
+
+/* ===============================================================
+   8️⃣ CLOSURES (VERY IMPORTANT)
+   =============================================================== */
+
+function outer() {
+    let count = 0;
+
+    return function inner() {
+        count++;
+        return count;
+    };
+}
+
+const counter = outer();
+// console.log(counter());
+// console.log(counter());
+
+
+/* ===============================================================
+   9️⃣ OBJECTS IN DEPTH
+   =============================================================== */
+
 const person = {
-    firstName: "Suyash",
-    lastName: "Gupta",
-    age: 22
+    name: "Suyash",
+    age: 22,
+    greet() {
+        return `Hi, I am ${this.name}`;
+    }
 };
 
-person.nationality = "Indian";
-//console.log("Person: " + person.firstName + " " + person.lastName + ", Age: " + person.age+", Nationality: "+person.nationality);
+//console.log(person.greet());
 
-const car = new Object({
-    type: "Fiat",
-    model: "500",
-    color: "white"
-});
+// Destructuring
+const { name, age: userAge } = person;
 
-// Javascript Arrays
-const fruits = ["Apple", "Banana", "Cherry"];
-fruits.push("Orange");
-//console.log("Fruits: " + fruits.join(", "));
+// Spread
+const updatedPerson = { ...person, city: "Delhi" };
 
 
-//Javascript Set
+/* ===============================================================
+   🔟 ARRAYS IN DEPTH
+   =============================================================== */
 
-const letters = new Set();
-letters.add("A");
-letters.add("B");
-letters.add("C");
-letters.add("A"); 
+const numbers = [1, 2, 3, 4, 5];
 
-//console.log("Set size: " + letters.size); 
+// map
+const doubled = numbers.map(n => n * 2);
 
-//Javascript Map
+// filter
+const evens = numbers.filter(n => n % 2 === 0);
 
-const capitals = new Map();
-capitals.set("India", "New Delhi");
-capitals.set("USA", "Washington D.C.");
-capitals.set("France", "Paris");
-
-//console.log("Capital of India: " + capitals.get("India"));
-
-// Javascript Regular Expressions
-const pattern = /world/i;
-const testString = "Hello, World!";
-const result = pattern.test(testString);
-
-let replacedString = testString.replace(pattern, "Universe");
-//console.log("Replaced String: " + replacedString);
-
-//console.log("Pattern found: " + result);
+// reduce
+const total = numbers.reduce((sum, n) => sum + n, 0);
 
 
-// Javascript Error Handling
+/* ===============================================================
+   1️⃣1️⃣ SET & MAP
+   =============================================================== */
+
+const uniqueNumbers = new Set([1, 2, 2, 3]);
+
+const mapData = new Map();
+mapData.set("key", "value");
+
+
+/* ===============================================================
+   1️⃣2️⃣ REGEX
+   =============================================================== */
+
+const regex = /hello/i;
+const text = "Hello World";
+
+// console.log(regex.test(text));
+
+
+/* ===============================================================
+   1️⃣3️⃣ ERROR HANDLING
+   =============================================================== */
+
 try {
-    let result = 10 / 0;
-    if (!isFinite(result)) {
-        throw new Error("Division by zero is not allowed.");
-    }
-} catch (error) {
-    //console.error("Error caught: " + error.message);
+    JSON.parse("{ bad json }");
+} catch (err) {
+    // console.error(err.message);
 } finally {
-    //console.log("Execution completed.");
+    // console.log("Always runs");
 }
 
 
-// Javascript Events
+/* ===============================================================
+   1️⃣4️⃣ ASYNCHRONOUS JAVASCRIPT
+   =============================================================== */
 
+// setTimeout
+setTimeout(() => {
+    // console.log("Timeout");
+}, 1000);
+
+// Promise
+const promise = new Promise((resolve) => {
+    resolve("Done");
+});
+
+// promise.then(console.log);
+
+// async/await
+async function asyncExample() {
+    return "Async Result";
+}
+
+
+/* ===============================================================
+   1️⃣5️⃣ EVENT LOOP (MICROTASK VS MACROTASK)
+   =============================================================== */
+
+// console.log("Start");
+
+// setTimeout(() => console.log("Timeout"), 0);
+
+// Promise.resolve().then(() => console.log("Promise"));
+
+// console.log("End");
+
+
+/* ===============================================================
+   1️⃣6️⃣ DOM EVENTS (REFERENCE)
+   =============================================================== */
 /*
-const button = document.getElementById("actionBtn");
-button.addEventListener("click", function () {
-    document.getElementById("demo").innerHTML = "Button was clicked!";
+document.getElementById("btn").addEventListener("click", () => {
+    alert("Clicked");
 });
-
-window.addEventListener("load", function () {
-    document.getElementById("demo").innerHTML += "<br>Page is fully loaded.";
-});
-
 */
 
+// Global context
+// console.log(this); // window (browser), {} in Node
 
-// Javascript Asynchronous Programming
-
-// Callback Functions
-
-function greet(name, callback) {
-    //console.log("Hello, " + name);
-    callback();
-}
-
-function sayBye() {
-    //console.log("Goodbye!");
-}
-
-greet("Suyash", sayBye);
-
-//console.log("Start");
-
-setTimeout(function () {
-    //console.log("Inside setTimeout");
-}, 2000);
-
-//console.log("End");
-
-function calc(a, b, callback) {
-    return callback(a, b);
-}
-
-function add(x, y) {
-    return x + y;
-}
-
-function mul(x, y) {
-    return x * y;
-}
-
-//console.log(calc(5, 3, add));    
-//console.log(calc(5, 3, mul));
-
-// Promises
-
-const myPromise = new Promise(function (resolve, reject) {
-    let success = true; 
-    if (success) {
-        resolve("Promise resolved successfully!");
-    } else {
-        reject("Promise rejected.");
+const user = {
+    name: "Suyash",
+    sayName() {
+        //console.log(this.name); // refers to user
     }
-});
+};
 
-myPromise.then(function (message) {
-    //console.log(message);
-}).catch(function (error) {
-    //console.error(error);
-});
+user.sayName();
 
-// Async/Await
+// Arrow function does NOT have its own this
+const ob = {
+    name: "JS",
+    arrowFunc: () => {
+        //console.log(this.name); // undefined
+    }
+};
 
-async function fetchData() {
-    return "Data fetched successfully!";
+function greet(city, country) {
+    return `Hi, I am ${this.name} from ${city}, ${country}`;
 }
 
-async function displayData() {
-    try {
-        const data = await fetchData();
-        //console.log(data);
-    } catch (error) {
-        //console.error("Error: " + error);
+const per= { name: "Suyash" };
+// call → arguments one by one
+ //console.log(greet.call(per, "Delhi", "India"));
+
+// apply → arguments as array
+ //console.log(greet.apply(per, ["Delhi", "India"]));
+
+// bind → returns new function
+const boundFunc = greet.bind(per, "Delhi", "India");
+//console.log(boundFunc());
+
+
+function People(name) {
+    this.name = name;
+}
+
+// Adding method using prototype
+People.prototype.sayHello = function () {
+    return `Hello ${this.name}`;
+};
+
+const p1 = new People("Suyash");
+ //console.log(p1.sayHello());
+
+// Check prototype chain
+// console.log(p1.__proto__ === People.prototype);
+
+
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() {
+        return `${this.name} makes a noise`;
     }
 }
 
-displayData();
+class Dog extends Animal {
+    speak() {
+        return `${this.name} barks`;
+    }
+}
+
+const dog = new Dog("Buddy");
+//console.log(dog.speak());
+
+
+
+const original = {
+    name: "JS",
+    address: { city: "Delhi" }
+};
+
+// Shallow copy
+const shallow = { ...original };
+shallow.address.city = "Mumbai";
+
+// console.log(original.address.city); // Mumbai ❗
+
+// Deep copy
+const deep = JSON.parse(JSON.stringify(original));
+deep.address.city = "Pune";
+
+//console.log(original.address.city); // Mumbai
+
+
+const userData = {
+    id: 1,
+    profile: {
+        username: "suyash",
+        ag: 22
+    }
+};
+
+const {
+    profile: { username, ag }
+} = userData;
+
+// console.log(username, ag);
 
