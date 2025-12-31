@@ -358,3 +358,41 @@ const search = debounce(text => {
 }, 500);
 
 // search("JavaScript");
+
+
+/* ===============================================================
+   2️⃣1️⃣ STRICT MODE
+   =============================================================== */
+
+"use strict";
+x = 10; // ❌
+//console.log(x);
+
+
+
+
+/* ===============================================================
+   2️⃣2️⃣ NULLISH COALESCING & OPTIONAL CHAINING
+   =============================================================== */
+
+//console.log(0 || 10);
+//console.log(0 && 10);
+//console.log(0 ?? 10);
+
+
+
+/* ===============================================================
+   2️⃣3️⃣ DOM MANIPULATION & EVENTS
+   =============================================================== */
+
+function addEventListenerToButton() {
+    document.getElementById("actionBtn").addEventListener("click", function() {
+        document.getElementById("demo").innerText = "Button Clicked!";
+    });
+}
+
+//addEventListenerToButton();
+
+/* ===============================================================
+   END OF JAVASCRIPT BASICS
+   =============================================================== */   
